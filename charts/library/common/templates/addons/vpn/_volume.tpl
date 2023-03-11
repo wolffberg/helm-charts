@@ -1,10 +1,10 @@
 {{/*
 The volume (referencing VPN scripts) to be inserted into additionalVolumes.
 */}}
-{{- define "bjw-s.common.addon.vpn.scriptsVolumeSpec" -}}
+{{- define "common.addon.vpn.scriptsVolumeSpec" -}}
 {{- if or .Values.addons.vpn.scripts.up .Values.addons.vpn.scripts.down -}}
 configMap:
-  name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-addon-vpn
+  name: {{ include "common.lib.chart.names.fullname" . }}-addon-vpn
   items:
     {{- if .Values.addons.vpn.scripts.up }}
     - key: up.sh
@@ -22,13 +22,13 @@ configMap:
 {{/*
 The volume (referencing VPN config) to be inserted into additionalVolumes.
 */}}
-{{- define "bjw-s.common.addon.vpn.configVolumeSpec" -}}
+{{- define "common.addon.vpn.configVolumeSpec" -}}
 {{- if or .Values.addons.vpn.configFile .Values.addons.vpn.configFileSecret -}}
 secret:
   {{- if .Values.addons.vpn.configFileSecret }}
   secretName: {{ .Values.addons.vpn.configFileSecret }}
   {{- else }}
-  secretName: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-addon-vpn-config
+  secretName: {{ include "common.lib.chart.names.fullname" . }}-addon-vpn-config
   {{- end }}
   items:
     - key: vpnConfigfile

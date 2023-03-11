@@ -1,11 +1,11 @@
 {{/*
 Probes selection logic.
 */}}
-{{- define "bjw-s.common.lib.container.probes" -}}
-  {{- $primaryService := get .Values.service (include "bjw-s.common.lib.service.primary" .) -}}
+{{- define "common.lib.container.probes" -}}
+  {{- $primaryService := get .Values.service (include "common.lib.service.primary" .) -}}
   {{- $primaryPort := "" -}}
   {{- if $primaryService -}}
-    {{- $primaryPort = get $primaryService.ports (include "bjw-s.common.lib.service.primaryPort" (dict "serviceName" (include "bjw-s.common.lib.service.primary" .) "values" $primaryService)) -}}
+    {{- $primaryPort = get $primaryService.ports (include "common.lib.service.primaryPort" (dict "serviceName" (include "common.lib.service.primary" .) "values" $primaryService)) -}}
   {{- end -}}
 
   {{- range $probeName, $probe := .Values.probes -}}

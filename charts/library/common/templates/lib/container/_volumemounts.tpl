@@ -1,5 +1,5 @@
 {{/* Volumes included by the controller */}}
-{{- define "bjw-s.common.lib.container.volumeMounts" -}}
+{{- define "common.lib.container.volumeMounts" -}}
   {{- range $persistenceIndex, $persistenceItem := .Values.persistence }}
     {{- if $persistenceItem.enabled -}}
       {{- if kindIs "slice" $persistenceItem.subPath -}}

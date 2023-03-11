@@ -1,7 +1,7 @@
 {{/*
 Renders the serviceMonitor objects required by the chart.
 */}}
-{{- define "bjw-s.common.render.serviceMonitors" -}}
+{{- define "common.render.serviceMonitors" -}}
   {{- /* Generate named services as required */ -}}
   {{- range $name, $serviceMonitor := .Values.serviceMonitor -}}
     {{- if $serviceMonitor.enabled -}}
@@ -13,7 +13,7 @@ Renders the serviceMonitor objects required by the chart.
 
       {{/* Include the serviceMonitor class */}}
       {{- $_ := set $ "ObjectValues" (dict "serviceMonitor" $serviceMonitorValues) -}}
-      {{- include "bjw-s.common.class.serviceMonitor" $ | nindent 0 -}}
+      {{- include "common.class.serviceMonitor" $ | nindent 0 -}}
       {{- $_ := unset $.ObjectValues "serviceMonitor" -}}
     {{- end -}}
   {{- end -}}

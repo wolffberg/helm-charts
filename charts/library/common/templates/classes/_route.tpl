@@ -2,7 +2,7 @@
 This template serves as a blueprint for all Route objects that are created
 within the common library.
 */}}
-{{- define "bjw-s.common.class.route" -}}
+{{- define "common.class.route" -}}
 {{- $values := .Values.route -}}
 {{- if hasKey . "ObjectValues" -}}
   {{- with .ObjectValues.route -}}
@@ -10,17 +10,17 @@ within the common library.
   {{- end -}}
 {{ end -}}
 
-{{- $fullName := include "bjw-s.common.lib.chart.names.fullname" . -}}
+{{- $fullName := include "common.lib.chart.names.fullname" . -}}
 {{- if and (hasKey $values "nameOverride") $values.nameOverride -}}
   {{- $fullName = printf "%v-%v" $fullName $values.nameOverride -}}
 {{ end -}}
 {{- $routeKind := $values.kind | default "HTTPRoute" -}}
-{{- $primaryService := get .Values.service (include "bjw-s.common.lib.service.primary" .) -}}
+{{- $primaryService := get .Values.service (include "common.lib.service.primary" .) -}}
 {{- $defaultServiceName := $fullName -}}
 {{- if and (hasKey $primaryService "nameOverride") $primaryService.nameOverride -}}
   {{- $defaultServiceName = printf "%v-%v" $defaultServiceName $primaryService.nameOverride -}}
 {{- end -}}
-{{- $defaultServicePort := get $primaryService.ports (include "bjw-s.common.lib.service.primaryPort" (dict "values" $primaryService)) -}}
+{{- $defaultServicePort := get $primaryService.ports (include "common.lib.service.primaryPort" (dict "values" $primaryService)) -}}
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 {{- if and (ne $routeKind "GRPCRoute") (ne $routeKind "HTTPRoute") (ne $routeKind "TCPRoute") (ne $routeKind "TLSRoute") (ne $routeKind "UDPRoute") }}
@@ -29,10 +29,10 @@ apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: {{ $routeKind }}
 metadata:
   name: {{ $fullName }}
-  {{- with (merge ($values.labels | default dict) (include "bjw-s.common.lib.metadata.allLabels" $ | fromYaml)) }}
+  {{- with (merge ($values.labels | default dict) (include "common.lib.metadata.allLabels" $ | fromYaml)) }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with (merge ($values.annotations | default dict) (include "bjw-s.common.lib.metadata.globalAnnotations" $ | fromYaml)) }}
+  {{- with (merge ($values.annotations | default dict) (include "common.lib.metadata.globalAnnotations" $ | fromYaml)) }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

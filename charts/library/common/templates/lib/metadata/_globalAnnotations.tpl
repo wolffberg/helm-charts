@@ -1,5 +1,5 @@
 {{/* Common annotations shared across objects */}}
-{{- define "bjw-s.common.lib.metadata.globalAnnotations" -}}
+{{- define "common.lib.metadata.globalAnnotations" -}}
   {{- with .Values.global.annotations }}
     {{- range $k, $v := . }}
       {{- $name := $k }}

@@ -2,8 +2,8 @@
 This template serves as a blueprint for all Ingress objects that are created
 within the common library.
 */}}
-{{- define "bjw-s.common.class.ingress" -}}
-  {{- $fullName := include "bjw-s.common.lib.chart.names.fullname" . -}}
+{{- define "common.class.ingress" -}}
+  {{- $fullName := include "common.lib.chart.names.fullname" . -}}
   {{- $ingressName := $fullName -}}
   {{- $values := .Values.ingress -}}
 
@@ -17,21 +17,21 @@ within the common library.
     {{- $ingressName = printf "%v-%v" $ingressName $values.nameOverride -}}
   {{- end -}}
 
-  {{- $primaryService := get .Values.service (include "bjw-s.common.lib.service.primary" .) -}}
+  {{- $primaryService := get .Values.service (include "common.lib.service.primary" .) -}}
   {{- $defaultServiceName := $fullName -}}
   {{- if and (hasKey $primaryService "nameOverride") $primaryService.nameOverride -}}
     {{- $defaultServiceName = printf "%v-%v" $defaultServiceName $primaryService.nameOverride -}}
   {{- end -}}
-  {{- $defaultServicePort := get $primaryService.ports (include "bjw-s.common.lib.service.primaryPort" (dict "values" $primaryService)) -}}
+  {{- $defaultServicePort := get $primaryService.ports (include "common.lib.service.primaryPort" (dict "values" $primaryService)) -}}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $ingressName }}
-  {{- with (merge ($values.labels | default dict) (include "bjw-s.common.lib.metadata.allLabels" $ | fromYaml)) }}
+  {{- with (merge ($values.labels | default dict) (include "common.lib.metadata.allLabels" $ | fromYaml)) }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with (merge ($values.annotations | default dict) (include "bjw-s.common.lib.metadata.globalAnnotations" $ | fromYaml)) }}
+  {{- with (merge ($values.annotations | default dict) (include "common.lib.metadata.globalAnnotations" $ | fromYaml)) }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

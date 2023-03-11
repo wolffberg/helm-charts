@@ -2,7 +2,7 @@
 This template serves as a blueprint for all Service objects that are created
 within the common library.
 */}}
-{{- define "bjw-s.common.class.service" -}}
+{{- define "common.class.service" -}}
 {{- $values := .Values.service -}}
 {{- if hasKey . "ObjectValues" -}}
   {{- with .ObjectValues.service -}}
@@ -10,13 +10,13 @@ within the common library.
   {{- end -}}
 {{ end -}}
 
-{{- $serviceName := include "bjw-s.common.lib.chart.names.fullname" . -}}
+{{- $serviceName := include "common.lib.chart.names.fullname" . -}}
 {{- if and (hasKey $values "nameOverride") $values.nameOverride -}}
   {{- $serviceName = printf "%v-%v" $serviceName $values.nameOverride -}}
 {{ end -}}
 {{- $svcType := $values.type | default "" -}}
-{{- $enabledPorts := include "bjw-s.common.lib.service.enabledPorts" (dict "serviceName" $serviceName "values" $values) | fromYaml }}
-{{- $primaryPort := get $values.ports (include "bjw-s.common.lib.service.primaryPort" (dict "values" $values)) }}
+{{- $enabledPorts := include "common.lib.service.enabledPorts" (dict "serviceName" $serviceName "values" $values) | fromYaml }}
+{{- $primaryPort := get $values.ports (include "common.lib.service.primaryPort" (dict "values" $values)) }}
 ---
 apiVersion: v1
 kind: Service
@@ -24,14 +24,14 @@ metadata:
   name: {{ $serviceName }}
   labels:
     app.kubernetes.io/service: {{ $serviceName }}
-    {{- with (merge ($values.labels | default dict) (include "bjw-s.common.lib.metadata.allLabels" $ | fromYaml)) }}
+    {{- with (merge ($values.labels | default dict) (include "common.lib.metadata.allLabels" $ | fromYaml)) }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
   annotations:
   {{- if eq ( $primaryPort.protocol | default "" ) "HTTPS" }}
     traefik.ingress.kubernetes.io/service.serversscheme: https
   {{- end }}
-  {{- with (merge ($values.annotations | default dict) (include "bjw-s.common.lib.metadata.globalAnnotations" $ | fromYaml)) }}
+  {{- with (merge ($values.annotations | default dict) (include "common.lib.metadata.globalAnnotations" $ | fromYaml)) }}
     {{ toYaml . | nindent 4 }}
   {{- end }}
 spec:
@@ -94,7 +94,7 @@ spec:
       nodePort: {{ $port.nodePort }}
         {{ end }}
       {{- end -}}
-  {{- with (merge ($values.extraSelectorLabels | default dict) (include "bjw-s.common.lib.metadata.selectorLabels" . | fromYaml)) }}
+  {{- with (merge ($values.extraSelectorLabels | default dict) (include "common.lib.metadata.selectorLabels" . | fromYaml)) }}
   selector: {{- toYaml . | nindent 4 }}
   {{- end }}
 {{- end }}

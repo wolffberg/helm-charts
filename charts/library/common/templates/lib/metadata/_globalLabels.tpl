@@ -1,4 +1,4 @@
-{{- define "bjw-s.common.lib.metadata.globalLabels" -}}
+{{- define "common.lib.metadata.globalLabels" -}}
   {{- with .Values.global.labels }}
     {{- range $k, $v := . }}
       {{- $name := $k }}

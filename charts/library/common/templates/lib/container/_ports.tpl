@@ -1,7 +1,7 @@
 {{/*
 Ports included by the controller.
 */}}
-{{- define "bjw-s.common.lib.container.ports" -}}
+{{- define "common.lib.container.ports" -}}
   {{- $ports := list -}}
   {{- range $servicename, $service := .Values.service -}}
     {{- $serviceEnabled := true -}}
@@ -9,7 +9,7 @@ Ports included by the controller.
       {{- $serviceEnabled = $service.enabled -}}
     {{- end -}}
     {{- if $serviceEnabled -}}
-      {{- $enabledPorts := include "bjw-s.common.lib.service.enabledPorts" (dict "serviceName" $servicename "values" $service) | fromYaml }}
+      {{- $enabledPorts := include "common.lib.service.enabledPorts" (dict "serviceName" $servicename "values" $service) | fromYaml }}
       {{- range $portname, $port := ($enabledPorts | default dict) -}}
         {{- $_ := set $port "name" $portname -}}
         {{- $ports = mustAppend $ports $port -}}

@@ -1,7 +1,7 @@
 {{/*
 Renders the Secret objects required by the chart.
 */}}
-{{- define "bjw-s.common.render.secrets" -}}
+{{- define "common.render.secrets" -}}
   {{- /* Generate named Secrets as required */ -}}
   {{- range $name, $secret := .Values.secrets -}}
     {{- if $secret.enabled -}}
@@ -13,7 +13,7 @@ Renders the Secret objects required by the chart.
       {{ end -}}
 
       {{- $_ := set $ "ObjectValues" (dict "secret" $secretValues) -}}
-      {{- include "bjw-s.common.class.secret" $ | nindent 0 -}}
+      {{- include "common.class.secret" $ | nindent 0 -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

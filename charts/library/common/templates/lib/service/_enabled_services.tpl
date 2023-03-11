@@ -1,7 +1,7 @@
 {{/*
 Return the enabled services.
 */}}
-{{- define "bjw-s.common.lib.service.enabledServices" -}}
+{{- define "common.lib.service.enabledServices" -}}
   {{- $enabledServices := dict -}}
   {{- range $name, $service := .Values.service -}}
     {{- if kindIs "map" $service -}}

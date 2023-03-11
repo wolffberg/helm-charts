@@ -1,7 +1,7 @@
 {{/*
 Renders the configMap objects required by the chart.
 */}}
-{{- define "bjw-s.common.render.configmaps" -}}
+{{- define "common.render.configmaps" -}}
   {{- /* Generate named configMaps as required */ -}}
   {{- range $name, $configmap := .Values.configMaps -}}
     {{- if $configmap.enabled -}}
@@ -13,7 +13,7 @@ Renders the configMap objects required by the chart.
       {{ end -}}
 
       {{- $_ := set $ "ObjectValues" (dict "configmap" $configmapValues) -}}
-      {{- include "bjw-s.common.class.configmap" $ | nindent 0 -}}
+      {{- include "common.class.configmap" $ | nindent 0 -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

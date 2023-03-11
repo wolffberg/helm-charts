@@ -1,18 +1,6 @@
-<div align="center">
+# helm-charts
 
-<img src="https://github.com/bjw-s/bjw-s/blob/main/_assets/images/logo.jpg?raw=true" align="left" width="144px" height="144px"/>
-
-## helm-charts
-
-</div>
-
-<div align="center">
-
-[![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/k8s-at-home)
-
-</div>
-
-<br><br>
+## This fork has been modified to reflect the github.com/wolffberg organization
 
 👋 Welcome to my Helm Charts repository. This repo contains Helm charts that I have developed to run applications in my [home Kubernetes cluster](https://github.com/bjw-s/home-ops/).
 This repo is **not** intended to be a replacement for any of the large collections of Helm charts that are out there.
